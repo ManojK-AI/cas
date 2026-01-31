@@ -1,0 +1,40 @@
+/* BASE STYLES */
+/* Resets, variables, typography */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    background: #fafafa;
+    color: #1d1d1f;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* LISTS */
+ul, ol {
+    margin: 15px 0 15px 25px;
+}
+
+li {
+    margin: 8px 0;
+}
+
+strong {
+    color: #1d1d1f;
+}
+
+h3 {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin: 25px 0 15px 0;
+    color: #667eea;
+}
