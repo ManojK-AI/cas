@@ -5,21 +5,40 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Install packages
-        run: npm install
-      - name: Install dependencies
-        run: npm ci
-      - name: Build 
+      - name: Install dependencies (try npm ci, fall back to npm install)
+        run: |
+          set -e
+          if npm ci --silent; then
+            echo "npm ci succeeded"
+          else
+            echo "npm ci failed - running npm install"
+            npm install
+            echo "Note: package-lock may have changed locally. Please update lockfile and push to repo to fix strict installs in CI."
+          fi
+      - name: Build
         run: npm run build
+      - name: Verify build output
+        run: |
+          if [ ! -d ./build ]; then
+            echo "Build directory missing - build failed";
+            ls -la
+            exit 1
+          fi
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
