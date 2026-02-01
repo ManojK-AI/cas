@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'cas_today_schedule';
 const TOMORROW_KEY = 'cas_tomorrow_schedule';
-const HISTORY_KEY = 'cas_task_history';
 
 function parseTasks(inputText) {
   const lines = inputText.split('\n').filter(line => line.trim());
